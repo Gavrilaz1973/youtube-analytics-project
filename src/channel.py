@@ -13,7 +13,7 @@ class Channel:
         self.title = channel_data['items'][0]['snippet']['title']
         self.description = channel_data['items'][0]['snippet']['description']
         self.url = 'https://www.youtube.com/channel/UCMCgOm8GZkHp8zJ6l7_hIuA'
-        self.subscriberCount = channel_data['items'][0]['statistics']['subscriberCount']
+        self.subscriberCount = int(channel_data['items'][0]['statistics']['subscriberCount'])
         self.video_count = channel_data['items'][0]['statistics']['videoCount']
         self.view_count = channel_data['items'][0]['statistics']['viewCount']
 
@@ -34,4 +34,26 @@ class Channel:
         with open(file, 'w') as outfile:
             json.dump(data, outfile)
 
+    def __repr__(self):
+        return f"{self.title} ({self.url})"
 
+    def __add__(self, other):
+        return self.subscriberCount + other.subscriberCount
+
+    def __sub__(self, other):
+        return self.subscriberCount - other.subscriberCount
+
+    def __gt__(self, other):
+        return self.subscriberCount > other.subscriberCount
+
+    def __ge__(self, other):
+        return self.subscriberCount >= other.subscriberCount
+
+    def __lt__(self, other):
+        return self.subscriberCount < other.subscriberCount
+
+    def __le__(self, other):
+        return self.subscriberCount <= other.subscriberCount
+
+    def __eq__(self, other):
+        return self.subscriberCount == other.subscriberCount
