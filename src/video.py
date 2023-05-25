@@ -6,10 +6,16 @@ class Video:
     def __init__(self, video_id: str):
         self.video_id = video_id
         video_data = self.video_response()
-        self.video_title: str = video_data['items'][0]['snippet']['title']
-        self.video_url: str = f"https://www.youtube.com/watch?v={video_id}"
-        self.view_count: int = video_data['items'][0]['statistics']['viewCount']
-        self.like_count: int = video_data['items'][0]['statistics']['likeCount']
+        try:
+            self.video_title: str = video_data['items'][0]['snippet']['title']
+            self.video_url: str = f"https://www.youtube.com/watch?v={video_id}"
+            self.view_count: int = video_data['items'][0]['statistics']['viewCount']
+            self.like_count: int = video_data['items'][0]['statistics']['likeCount']
+        except IndexError:
+            self.video_title = None
+            self.view_count = None
+            self.like_count = None
+            self.view_count = None
 
     def video_response(self):
         api_key: str = os.getenv('YT_API_KEY1')
